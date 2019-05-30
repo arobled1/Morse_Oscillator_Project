@@ -15,7 +15,7 @@
 # mass = reduced mass
 #===============================================================================
 import numpy as np
-from numpy import linalg as la
+from scipy import linalg as la
 import matplotlib.pyplot as plt
 
 def generate_grid(xmin, xmax, ngrid):
