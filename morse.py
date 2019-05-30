@@ -4,7 +4,7 @@
 # oscillator.
 #===============================================================================
 # Author: Alan Robledo
-# Date modified: May 26, 2019
+# Date modified: May 30, 2019
 #===============================================================================
 # Variables:
 # xbound = sets the bound in the positive and negative direction
