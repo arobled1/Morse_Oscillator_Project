@@ -60,13 +60,19 @@ omegax = 0.2041241
 xmin = -4.0
 xmax = 12.0
 ngrid = 300
-
+# Defining the grid
 dx, x_grid = generate_grid(xmin, xmax, ngrid)
+# Getting kinetic energy matrix
 ke_matrix = get_kinetic(ngrid, dx)
+# Getting potential energy matrix
 pe_matrix = get_potential(ngrid)
+# Making hamiltonian matrix
 hamiltonian = ke_matrix + pe_matrix
+# Eigenvalue decomposition of hamiltonian
 eig_val, eig_vec = la.eig(hamiltonian)
+# Sorting the eigenvalues and corresponding eigenvectors
 sort_eigval, sort_eigvec = bubble_sort(eig_val, eig_vec)
+# Next 6 lines are solely for making plots of eigenvectors
 ground = [sort_eigvec[i][0] - 0.3 for i in xrange(ngrid)]
 first_exc = [sort_eigvec[i][1] - 0.1 for i in xrange(ngrid)]
 sec_exc = [sort_eigvec[i][2] + 0.1 for i in xrange(ngrid)]
@@ -86,6 +92,7 @@ plt.ylabel("psi")
 plt.legend()
 plt.savefig("wavefunctions.pdf")
 plt.clf()
+# Writing sorted eigenvalues to a file
 f = open('eigenvalues.dat', 'wb')
 f.write("n       E_n\n")
 for i in xrange(ngrid):
