@@ -40,12 +40,22 @@ def get_potential(ngrid):
         pe_matrix[i][i] = d_well * (np.exp(-omegax * x_grid[i]) - 1)**2
     return pe_matrix
 
+def bubble_sort(eig_energies, eig_vectors):
+    new_list = eig_energies[:]
+    num_pairs = len(new_list) - 1
+    for j in xrange(num_pairs):
+        for i in xrange(num_pairs - j):
+            if new_list[i] > new_list[i+1]:
+                new_list[i], new_list[i+1] = new_list[i+1], new_list[i]
+                eig_vectors[:,i], eig_vectors[:,i+1] = eig_vectors[:,i+1], eig_vectors[:,i]
+    return new_list, eig_vectors
+
 d_well = 12
 hbar = 1
 mass = 1
 omegax = 0.2041241
-xmin = -5.0
-xmax = 11.1
+xmin = -4.0
+xmax = 12.0
 ngrid = 300
 
 dx, x_grid = generate_grid(xmin, xmax, ngrid)
@@ -53,6 +63,7 @@ ke_matrix = get_kinetic(ngrid, dx)
 pe_matrix = get_potential(ngrid)
 hamiltonian = ke_matrix + pe_matrix
 eig_val, eig_vec = la.eig(hamiltonian)
+eig_val, eig_vec = bubble_sort(eig_val, eig_vec)
 ground = [eig_vec[i][0] - 0.3 for i in xrange(ngrid)]
 first_exc = [eig_vec[i][1] - 0.1 for i in xrange(ngrid)]
 sec_exc = [eig_vec[i][2] + 0.1 for i in xrange(ngrid)]
