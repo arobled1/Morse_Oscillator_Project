@@ -1,6 +1,7 @@
 #=============================================================================80
 # Description:
-# Computing the hamiltonian for a 1D morse oscillator.
+# Computes an eigenvalue decomposition of the hamiltonian for a 1D morse
+# oscillator.
 #===============================================================================
 # Author: Alan Robledo
 # Date modified: May 26, 2019
