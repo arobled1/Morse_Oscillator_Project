@@ -16,6 +16,7 @@
 #===============================================================================
 import numpy as np
 from scipy import linalg as la
+import copy
 import matplotlib.pyplot as plt
 
 def generate_grid(xmin, xmax, ngrid):
@@ -42,14 +43,15 @@ def get_potential(ngrid):
     return pe_matrix
 
 def bubble_sort(eig_energies, eig_vectors):
-    new_list = eig_energies[:]
+    new_list = copy.copy(eig_energies)
+    new_mat = copy.deepcopy(eig_vectors)
     num_pairs = len(new_list) - 1
     for j in xrange(num_pairs):
         for i in xrange(num_pairs - j):
             if new_list[i] > new_list[i+1]:
                 new_list[i], new_list[i+1] = new_list[i+1], new_list[i]
-                eig_vectors[:,i], eig_vectors[:,i+1] = eig_vectors[:,i+1], eig_vectors[:,i]
-    return new_list, eig_vectors
+                new_mat[:,[i, i+1]] = new_mat[:,[i+1,i]]
+    return new_list, new_mat
 
 d_well = 12
 hbar = 1
@@ -64,12 +66,12 @@ ke_matrix = get_kinetic(ngrid, dx)
 pe_matrix = get_potential(ngrid)
 hamiltonian = ke_matrix + pe_matrix
 eig_val, eig_vec = la.eig(hamiltonian)
-eig_val, eig_vec = bubble_sort(eig_val, eig_vec)
-ground = [eig_vec[i][0] - 0.3 for i in xrange(ngrid)]
-first_exc = [eig_vec[i][1] - 0.1 for i in xrange(ngrid)]
-sec_exc = [eig_vec[i][2] + 0.1 for i in xrange(ngrid)]
-third_exc = [eig_vec[i][3] + 0.3 for i in xrange(ngrid)]
-fourth_exc = [eig_vec[i][4] + 0.5 for i in xrange(ngrid)]
+sort_eigval, sort_eigvec = bubble_sort(eig_val, eig_vec)
+ground = [sort_eigvec[i][0] - 0.3 for i in xrange(ngrid)]
+first_exc = [sort_eigvec[i][1] - 0.1 for i in xrange(ngrid)]
+sec_exc = [sort_eigvec[i][2] + 0.1 for i in xrange(ngrid)]
+third_exc = [sort_eigvec[i][3] + 0.3 for i in xrange(ngrid)]
+fourth_exc = [sort_eigvec[i][4] + 0.5 for i in xrange(ngrid)]
 potential = [d_well * (np.exp(-omegax * x_grid[i]) - 1)**2 for i in xrange(ngrid)]
 plt.xlim(min(x_grid) - 0.1, max(x_grid) + 0.1)
 plt.ylim(min(ground) - 0.1, max(fourth_exc) + 0.1)
@@ -87,5 +89,5 @@ plt.clf()
 f = open('eigenvalues.dat', 'wb')
 f.write("n       E_n\n")
 for i in xrange(ngrid):
-    f.write("%s %s\n" % (i, eig_val[i]))
+    f.write("%s %s\n" % (i, sort_eigval[i]))
 f.close()
