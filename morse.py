@@ -94,7 +94,7 @@ plt.legend()
 plt.savefig("morse_prob_densities.pdf")
 plt.clf()
 # Writing sorted eigenvalues to a file
-f = open('eigenvalues.dat', 'wb')
+f = open('1dmorse_eigenvalues.dat', 'wb')
 f.write("n       E_n\n")
 for i in xrange(ngrid):
     f.write("%s %s\n" % (i, sort_eigval[i]))
