@@ -1,10 +1,17 @@
 #=============================================================================80
 # Description:
-# Computes an eigenvalue decomposition of the hamiltonian for a 1D morse
-# oscillator.
+# Computes an eigenvalue decomposition of the hamiltonian for a 1d morse
+# oscillator with a harmonic potential instead of a morse potential.
+# The potential for a harmonic oscillator is: 1/2 k x^2
+#       where k = 2 * D * w^2
+# The expression for k can be found in:
+# https://en.wikipedia.org/wiki/Morse_potential
+# The value for omega and D is the same as in the 1d morse code to see how the
+# wavefunctions and energies differ between the morse potential and the harmonic
+# potential.
 #===============================================================================
 # Author: Alan Robledo
-# Date modified: May 30, 2019
+# Date modified: May 31, 2019
 #===============================================================================
 # Variables:
 # xbound = sets the bound in the positive and negative direction
@@ -39,7 +46,7 @@ def get_kinetic(ngrid, dx):
 def get_potential(ngrid, omega, x_grid):
     pe_matrix = np.zeros((ngrid, ngrid))
     for i in xrange(ngrid):
-        pe_matrix[i][i] = 0.5 * omega**2 * x_grid[i]**2
+        pe_matrix[i][i] = 0.5 * omega**2 * 2 * d_well * x_grid[i]**2
     return pe_matrix
 
 def bubble_sort(eig_energies, eig_vectors):
