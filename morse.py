@@ -60,6 +60,7 @@ omegax = 0.2041241
 xmin = -4.0
 xmax = 12.0
 ngrid = 300
+
 # Defining the grid
 dx, x_grid = generate_grid(xmin, xmax, ngrid)
 # Getting kinetic energy matrix
@@ -72,25 +73,25 @@ hamiltonian = ke_matrix + pe_matrix
 eig_val, eig_vec = la.eig(hamiltonian)
 # Sorting the eigenvalues and corresponding eigenvectors
 sort_eigval, sort_eigvec = bubble_sort(eig_val, eig_vec)
-# Next 6 lines are solely for making plots of eigenvectors
-ground = [sort_eigvec[i][0] - 0.3 for i in xrange(ngrid)]
-first_exc = [sort_eigvec[i][1] - 0.1 for i in xrange(ngrid)]
-sec_exc = [sort_eigvec[i][2] + 0.1 for i in xrange(ngrid)]
-third_exc = [sort_eigvec[i][3] + 0.3 for i in xrange(ngrid)]
-fourth_exc = [sort_eigvec[i][4] + 0.5 for i in xrange(ngrid)]
+# Next 6 lines are solely for making plots of prob. densities
+ground = [sort_eigvec[i][0]*sort_eigvec[i][0] - 0.096 for i in xrange(ngrid)]
+first_exc = [sort_eigvec[i][1]*sort_eigvec[i][1] - 0.06 for i in xrange(ngrid)]
+sec_exc = [sort_eigvec[i][2]*sort_eigvec[i][2] - 0.03 for i in xrange(ngrid)]
+third_exc = [sort_eigvec[i][3]*sort_eigvec[i][3] for i in xrange(ngrid)]
+fourth_exc = [sort_eigvec[i][4]*sort_eigvec[i][4] + 0.03 for i in xrange(ngrid)]
 potential = [d_well * (np.exp(-omegax * x_grid[i]) - 1)**2 for i in xrange(ngrid)]
-plt.xlim(min(x_grid) - 0.1, max(x_grid) + 0.1)
-plt.ylim(min(ground) - 0.1, max(fourth_exc) + 0.1)
+plt.xlim(min(x_grid) - 0.01, max(x_grid) + 0.01)
+plt.ylim(min(ground) - 0.01, max(fourth_exc) + 0.01)
 plt.yticks([])
-plt.plot(x_grid, ground, label='n = 0')
-plt.plot(x_grid, first_exc, label='n = 1')
-plt.plot(x_grid, sec_exc, label='n = 2')
-plt.plot(x_grid, third_exc, label='n = 3')
-plt.plot(x_grid, fourth_exc, label='n = 4')
+plt.plot(x_grid, fourth_exc, label='n = 4', color='black')
+plt.plot(x_grid, third_exc, label='n = 3', color='magenta')
+plt.plot(x_grid, sec_exc, label='n = 2', color='green')
+plt.plot(x_grid, first_exc, label='n = 1', color='red')
+plt.plot(x_grid, ground, label='n = 0', color='blue')
 plt.xlabel("x")
-plt.ylabel("psi")
+plt.ylabel("|psi|^2")
 plt.legend()
-plt.savefig("wavefunctions.pdf")
+plt.savefig("prob_densities.pdf")
 plt.clf()
 # Writing sorted eigenvalues to a file
 f = open('eigenvalues.dat', 'wb')
