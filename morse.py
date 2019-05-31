@@ -91,7 +91,7 @@ plt.plot(x_grid, ground, label='n = 0', color='blue')
 plt.xlabel("x")
 plt.ylabel("|psi|^2")
 plt.legend()
-plt.savefig("prob_densities.pdf")
+plt.savefig("morse_prob_densities.pdf")
 plt.clf()
 # Writing sorted eigenvalues to a file
 f = open('eigenvalues.dat', 'wb')
