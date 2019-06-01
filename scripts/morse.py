@@ -79,7 +79,8 @@ first_exc = [sort_eigvec[i][1]*sort_eigvec[i][1] - 0.06 for i in xrange(ngrid)]
 sec_exc = [sort_eigvec[i][2]*sort_eigvec[i][2] - 0.03 for i in xrange(ngrid)]
 third_exc = [sort_eigvec[i][3]*sort_eigvec[i][3] for i in xrange(ngrid)]
 fourth_exc = [sort_eigvec[i][4]*sort_eigvec[i][4] + 0.03 for i in xrange(ngrid)]
-potential = [d_well * (np.exp(-omegax * x_grid[i]) - 1)**2 for i in xrange(ngrid)]
+harmonic_potential = [0.5 * omegax**2 * 2 * d_well * x_grid[i]**2 for i in xrange(ngrid)]
+morse_potential = [d_well * (np.exp(-omegax * x_grid[i]) - 1)**2 for i in xrange(ngrid)]
 plt.xlim(min(x_grid) - 0.01, max(x_grid) + 0.01)
 plt.ylim(min(ground) - 0.01, max(fourth_exc) + 0.01)
 plt.yticks([])
@@ -92,6 +93,15 @@ plt.xlabel("x")
 plt.ylabel("|psi|^2")
 plt.legend()
 plt.savefig("morse_prob_densities.pdf")
+plt.clf()
+
+plt.xlim(min(x_grid) - 10, max(x_grid) + 10)
+plt.ylim(min(morse_potential) - 10, max(morse_potential) + 10)
+plt.plot(x_grid, morse_potential, label='Morse Potential')
+plt.plot(x_grid, harmonic_potential, label="Harmonic Approximation")
+plt.xlabel("x")
+plt.ylabel("V(x)")
+plt.savefig("morse_potential.pdf")
 plt.clf()
 # Writing sorted eigenvalues to a file
 f = open('1dmorse_eigenvalues.dat', 'wb')
