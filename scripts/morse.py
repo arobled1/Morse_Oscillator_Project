@@ -53,6 +53,13 @@ def bubble_sort(eig_energies, eig_vectors):
                 new_mat[:,[i, i+1]] = new_mat[:,[i+1,i]]
     return new_list, new_mat
 
+def get_transition(eig_vec, ngrid, state1, state2):
+    tmp = np.zeros((ngrid, ngrid))
+    for i in xrange(ngrid):
+        for j in  xrange(ngrid):
+            tmp[j,i] = eig_vec[j,state1] * eig_vec[i,state2]
+    return tmp
+
 d_well = 12
 hbar = 1
 mass = 1
@@ -63,46 +70,110 @@ ngrid = 300
 
 # Defining the grid
 dx, x_grid = generate_grid(xmin, xmax, ngrid)
+
 # Getting kinetic energy matrix
 ke_matrix = get_kinetic(ngrid, dx)
+
 # Getting potential energy matrix
 pe_matrix = get_potential(ngrid)
+
 # Making hamiltonian matrix
 hamiltonian = ke_matrix + pe_matrix
+
 # Eigenvalue decomposition of hamiltonian
 eig_val, eig_vec = la.eig(hamiltonian)
+
 # Sorting the eigenvalues and corresponding eigenvectors
 sort_eigval, sort_eigvec = bubble_sort(eig_val, eig_vec)
-# Next 6 lines are solely for making plots of prob. densities
-ground = [sort_eigvec[i][0]*sort_eigvec[i][0] - 0.096 for i in xrange(ngrid)]
-first_exc = [sort_eigvec[i][1]*sort_eigvec[i][1] - 0.06 for i in xrange(ngrid)]
-sec_exc = [sort_eigvec[i][2]*sort_eigvec[i][2] - 0.03 for i in xrange(ngrid)]
-third_exc = [sort_eigvec[i][3]*sort_eigvec[i][3] for i in xrange(ngrid)]
-fourth_exc = [sort_eigvec[i][4]*sort_eigvec[i][4] + 0.03 for i in xrange(ngrid)]
-harmonic_potential = [0.5 * omegax**2 * 2 * d_well * x_grid[i]**2 for i in xrange(ngrid)]
-morse_potential = [d_well * (np.exp(-omegax * x_grid[i]) - 1)**2 for i in xrange(ngrid)]
-plt.xlim(min(x_grid) - 0.01, max(x_grid) + 0.01)
-plt.ylim(min(ground) - 0.01, max(fourth_exc) + 0.01)
+if np.sign(sort_eigvec[0][0]) == -1:
+    sort_eigvec = sort_eigvec * -1
+
+# Creating the transition matrix for going from ground to 1st excited state
+ground_first = get_transition(sort_eigvec, ngrid, 0, 1)
+ground_second = get_transition(sort_eigvec, ngrid, 0, 2)
+u, s, vt = la.svd(ground_first)
+if np.sign(u[0][0]) == -1:
+    u = -1 * u
+    vt = -1 * vt
+
+plot_u = np.array([u[i][0] for i in xrange(ngrid)])
+plot_vt = np.array([vt[0][i] for i in xrange(ngrid)])
+plt.xlim(min(x_grid) - 0.1, max(x_grid) + 0.1)
+plt.ylim(min(plot_u) - 0.1, max(plot_vt) + 0.4)
 plt.yticks([])
-plt.plot(x_grid, fourth_exc, label='n = 4', color='black')
-plt.plot(x_grid, third_exc, label='n = 3', color='magenta')
-plt.plot(x_grid, sec_exc, label='n = 2', color='green')
-plt.plot(x_grid, first_exc, label='n = 1', color='red')
-plt.plot(x_grid, ground, label='n = 0', color='blue')
+plt.plot(x_grid, electron_density, label="density")
+plt.plot(x_grid, plot_u, label='U', color='blue')
+plt.plot(x_grid, plot_vt + 0.3, label=r'V$^T$', color='black')
+plt.axhline(y = 0, linestyle='dashed', color='grey')
+plt.axhline(y = 0.3, linestyle='dashed', color='grey')
+plt.legend()
+plt.savefig("diditwork.pdf")
+plt.clf()
+
+# Next 6 lines are solely for making plots of prob. densities
+ground = np.array([sort_eigvec[i][0] for i in xrange(ngrid)])
+first_state = np.array([sort_eigvec[i][1] for i in xrange(ngrid)])
+sec_state = np.array([sort_eigvec[i][2] for i in xrange(ngrid)])
+third_state = np.array([sort_eigvec[i][3] for i in xrange(ngrid)])
+fourth_state = np.array([sort_eigvec[i][4] for i in xrange(ngrid)])
+plt.xlim(min(x_grid) - 0.1, max(x_grid) + 0.1)
+plt.ylim(min(ground) - 1.06, max(fourth_state) + 0.4)
+plt.yticks([])
+plt.plot(x_grid, fourth_state + 0.3, label='n = 4', color='black')
+plt.plot(x_grid, third_state, label='n = 3', color='purple')
+plt.plot(x_grid, sec_state - 0.3, label='n = 2', color='green')
+plt.plot(x_grid, first_state - 0.6, label='n = 1', color='blue')
+plt.plot(x_grid, ground - 0.96, label='n = 0', color='dodgerblue')
+plt.axhline(y = -0.96, linestyle='dashed', color='grey')
+plt.axhline(y = -0.6, linestyle='dashed', color='grey')
+plt.axhline(y = -0.3, linestyle='dashed', color='grey')
+plt.axhline(y = 0, linestyle='dashed', color='grey')
+plt.axhline(y = 0.3, linestyle='dashed', color='grey')
 plt.xlabel("x")
-plt.ylabel("|psi|^2")
+plt.ylabel(r'$\psi_n(x)$')
+plt.legend()
+plt.savefig("morse_states.pdf")
+plt.clf()
+
+# Next 6 lines are solely for making plots of prob. densities
+groundprob = np.array([sort_eigvec[i][0]*sort_eigvec[i][0] for i in xrange(ngrid)])
+first_prob = np.array([sort_eigvec[i][1]*sort_eigvec[i][1] for i in xrange(ngrid)])
+sec_prob = np.array([sort_eigvec[i][2]*sort_eigvec[i][2] for i in xrange(ngrid)])
+third_prob = np.array([sort_eigvec[i][3]*sort_eigvec[i][3] for i in xrange(ngrid)])
+fourth_prob = np.array([sort_eigvec[i][4]*sort_eigvec[i][4] for i in xrange(ngrid)])
+plt.xlim(min(x_grid) - 0.01, max(x_grid) + 0.01)
+plt.ylim(min(groundprob) - 0.106, max(fourth_prob) + 0.04)
+plt.yticks([])
+plt.plot(x_grid, fourth_prob + 0.03, label='n = 4', color='black')
+plt.plot(x_grid, third_prob, label='n = 3', color='purple')
+plt.plot(x_grid, sec_prob - 0.03, label='n = 2', color='green')
+plt.plot(x_grid, first_prob - 0.06, label='n = 1', color='blue')
+plt.plot(x_grid, groundprob - 0.096, label='n = 0', color='dodgerblue')
+plt.axhline(y = -0.096, linestyle='dashed', color='grey')
+plt.axhline(y = -0.06, linestyle='dashed', color='grey')
+plt.axhline(y = -0.03, linestyle='dashed', color='grey')
+plt.axhline(y = 0, linestyle='dashed', color='grey')
+plt.axhline(y = 0.03, linestyle='dashed', color='grey')
+plt.xlabel("x")
+plt.ylabel(r'$|\psi_n(x)|^2$')
 plt.legend()
 plt.savefig("morse_prob_densities.pdf")
 plt.clf()
 
-plt.xlim(min(x_grid) - 10, max(x_grid) + 10)
-plt.ylim(min(morse_potential) - 10, max(morse_potential) + 10)
-plt.plot(x_grid, morse_potential, label='Morse Potential')
-plt.plot(x_grid, harmonic_potential, label="Harmonic Approximation")
+# Plotting the morse and harmonic potential.
+potential_grid = np.linspace(-10, 10, 400)
+harmonic_potential = np.array([0.5 * omegax**2 * 2 * d_well * i**2 for i in potential_grid])
+morse_potential = np.array([d_well * (np.exp(-omegax * i) - 1)**2 for i in potential_grid])
+plt.xlim(min(potential_grid) - 1, max(potential_grid) + 1)
+plt.ylim(min(morse_potential), 100)
+plt.plot(potential_grid, morse_potential, label='Morse Potential')
+plt.plot(potential_grid, harmonic_potential, label="Harmonic Approximation")
 plt.xlabel("x")
 plt.ylabel("V(x)")
+plt.legend()
 plt.savefig("morse_potential.pdf")
 plt.clf()
+
 # Writing sorted eigenvalues to a file
 f = open('1dmorse_eigenvalues.dat', 'wb')
 f.write("n       E_n\n")
