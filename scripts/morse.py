@@ -106,7 +106,7 @@ plt.plot(x_grid, plot_vt + 0.3, label=r'V$^T$', color='black')
 plt.axhline(y = 0, linestyle='dashed', color='grey')
 plt.axhline(y = 0.3, linestyle='dashed', color='grey')
 plt.legend()
-plt.savefig("ntos.pdf")
+plt.savefig("morse_ntos.pdf")
 plt.clf()
 
 # Next 6 lines are solely for making plots of prob. densities
