@@ -109,7 +109,7 @@ plt.legend()
 plt.savefig("morse_ntos.pdf")
 plt.clf()
 
-# Next 6 lines are solely for making plots of prob. densities
+# Next 6 lines are solely for making plots of wavefunctions
 ground = np.array([sort_eigvec[i][0] for i in xrange(ngrid)])
 first_state = np.array([sort_eigvec[i][1] for i in xrange(ngrid)])
 sec_state = np.array([sort_eigvec[i][2] for i in xrange(ngrid)])
