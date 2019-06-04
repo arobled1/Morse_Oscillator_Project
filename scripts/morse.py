@@ -64,7 +64,7 @@ d_well = 12
 hbar = 1
 mass = 1
 omegax = 0.2041241
-xmin = -4.0
+xmin = -6.0
 xmax = 12.0
 ngrid = 300
 
@@ -118,7 +118,7 @@ fourth_state = np.array([sort_eigvec[i][4] for i in xrange(ngrid)])
 ten_state = np.array([sort_eigvec[i][10] for i in xrange(ngrid)])
 eleven = np.array([sort_eigvec[i][11] for i in xrange(ngrid)])
 plt.xlim(min(x_grid) - 0.1, max(x_grid) + 0.1)
-plt.ylim(min(ground) - 1.06, max(fourth_state) + 0.4)
+plt.ylim(min(ground) - 1.06, max(eleven) + 0.4)
 plt.yticks([])
 plt.plot(x_grid, eleven + 0.3, label='n = 11', color='black')
 plt.plot(x_grid, ten_state, label='n = 10', color='purple')
@@ -145,7 +145,7 @@ fourth_prob = np.array([sort_eigvec[i][4]*sort_eigvec[i][4] for i in xrange(ngri
 ten_stateprob = np.array([sort_eigvec[i][10]*sort_eigvec[i][10] for i in xrange(ngrid)])
 elevenprob = np.array([sort_eigvec[i][11]*sort_eigvec[i][11] for i in xrange(ngrid)])
 plt.xlim(min(x_grid) - 0.01, max(x_grid) + 0.01)
-plt.ylim(min(groundprob) - 0.106, max(fourth_prob) + 0.04)
+plt.ylim(min(groundprob) - 0.106, max(elevenprob) + 0.04)
 plt.yticks([])
 plt.plot(x_grid, elevenprob + 0.03, label='n = 11', color='black')
 plt.plot(x_grid, ten_stateprob, label='n = 10', color='purple')
