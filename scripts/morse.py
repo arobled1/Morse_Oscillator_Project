@@ -89,9 +89,8 @@ if np.sign(sort_eigvec[0][0]) == -1:
     sort_eigvec = sort_eigvec * -1
 
 # Creating the transition matrix for going from ground to 1st excited state
-ground_first = get_transition(sort_eigvec, ngrid, 0, 1)
-ground_second = get_transition(sort_eigvec, ngrid, 0, 2)
-u, s, vt = la.svd(ground_first)
+ground_eleven = get_transition(sort_eigvec, ngrid, 0, 11)
+u, s, vt = la.svd(ground_eleven)
 if np.sign(u[0][0]) == -1:
     u = -1 * u
     vt = -1 * vt
@@ -102,10 +101,10 @@ plt.xlim(min(x_grid) - 0.1, max(x_grid) + 0.1)
 plt.ylim(min(plot_u) - 0.1, max(plot_vt) + 0.4)
 plt.yticks([])
 plt.plot(x_grid, plot_u, label=r'$\psi_{hole}$', color='blue')
-plt.plot(x_grid, plot_vt + 0.3, label=r'$\psi_{electron}$', color='black')
+plt.plot(x_grid, plot_vt + 0.35, label=r'$\psi_{electron}$', color='black')
 plt.axhline(y = 0, linestyle='dashed', color='grey')
-plt.axhline(y = 0.3, linestyle='dashed', color='grey')
-plt.legend()
+plt.axhline(y = 0.35, linestyle='dashed', color='grey')
+plt.legend(loc='center right', fontsize=14)
 plt.savefig("morse_ntos.pdf")
 plt.clf()
 
