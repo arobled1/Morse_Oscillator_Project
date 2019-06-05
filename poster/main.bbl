@@ -1,0 +1,189 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.8 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist[entry]{nty/global/}
+    \entry{cite:4}{book}{}
+      \name{author}{3}{}{%
+        {{hash=b0fccdf45aa3d05221c67ffb39206678}{%
+           family={Cauchy},
+           familyi={C\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=acde4f6e19bf15edb19f1293baa93964}{%
+           family={Maruyama},
+           familyi={M\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod}}}%
+        {{hash=19f7c56142a8e841b647f49d48f99bc3}{%
+           family={Kolmogorov},
+           familyi={K\bibinitperiod},
+           given={F.},
+           giveni={F\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{4f48e84b8accd6205ea8573106cd792a}
+      \strng{fullhash}{4f48e84b8accd6205ea8573106cd792a}
+      \strng{authornamehash}{4f48e84b8accd6205ea8573106cd792a}
+      \strng{authorfullhash}{4f48e84b8accd6205ea8573106cd792a}
+      \field{sortinit}{C}
+      \field{sortinithash}{095692fd22cc3c74d7fe223d02314dbd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{A First Course in General Measure Theory}
+      \field{year}{1997}
+      \field{pages}{9958}
+      \range{pages}{1}
+    \endentry
+    \entry{cite:2}{article}{}
+      \name{author}{1}{}{%
+        {{hash=e72837110c2b63ffc1fe8b760d68f88d}{%
+           family={Chern},
+           familyi={C\bibinitperiod},
+           given={N.},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{e72837110c2b63ffc1fe8b760d68f88d}
+      \strng{fullhash}{e72837110c2b63ffc1fe8b760d68f88d}
+      \strng{authornamehash}{e72837110c2b63ffc1fe8b760d68f88d}
+      \strng{authorfullhash}{e72837110c2b63ffc1fe8b760d68f88d}
+      \field{sortinit}{C}
+      \field{sortinithash}{095692fd22cc3c74d7fe223d02314dbd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{{J}ournal of Higher Knot Theory}
+      \field{month}{12}
+      \field{title}{Hyper-Nonnegative Definite, Infinite Polytopes of Null Functions and the Characterization of Quasi-Multiply Intrinsic, Completely Integrable, {A}rtinian Rings}
+      \field{volume}{15}
+      \field{year}{2001}
+      \field{pages}{303\bibrangedash 370}
+      \range{pages}{68}
+    \endentry
+    \entry{cite:5}{book}{}
+      \name{author}{2}{}{%
+        {{hash=1e46a297a9ddca06f5901cbf04e4cdc4}{%
+           family={Clifford},
+           familyi={C\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=a4988d86d452a6525cbb64ae3bae48e6}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={N.},
+           giveni={N\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Tanzanian Mathematical Society}%
+      }
+      \strng{namehash}{89fac3df47f63b87aed6aa0fb8ceee20}
+      \strng{fullhash}{89fac3df47f63b87aed6aa0fb8ceee20}
+      \strng{authornamehash}{89fac3df47f63b87aed6aa0fb8ceee20}
+      \strng{authorfullhash}{89fac3df47f63b87aed6aa0fb8ceee20}
+      \field{sortinit}{C}
+      \field{sortinithash}{095692fd22cc3c74d7fe223d02314dbd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{General Probability}
+      \field{year}{1996}
+      \field{pages}{9892}
+      \range{pages}{1}
+    \endentry
+    \entry{cite:3}{article}{}
+      \name{author}{1}{}{%
+        {{hash=2eacd8ecce690d4d0067f530cc7ad679}{%
+           family={Kumar},
+           familyi={K\bibinitperiod},
+           given={X.},
+           giveni={X\bibinitperiod}}}%
+      }
+      \strng{namehash}{2eacd8ecce690d4d0067f530cc7ad679}
+      \strng{fullhash}{2eacd8ecce690d4d0067f530cc7ad679}
+      \strng{authornamehash}{2eacd8ecce690d4d0067f530cc7ad679}
+      \strng{authorfullhash}{2eacd8ecce690d4d0067f530cc7ad679}
+      \field{sortinit}{K}
+      \field{sortinithash}{4c244ceae61406cdc0cc2ce1cb1ff703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{{J}ournal of Modern Arithmetic}
+      \field{month}{5}
+      \field{title}{On Modern Representation Theory}
+      \field{volume}{8}
+      \field{year}{1999}
+      \field{pages}{1\bibrangedash 17}
+      \range{pages}{17}
+    \endentry
+    \entry{cite:0}{book}{}
+      \name{author}{1}{}{%
+        {{hash=108fcfcb550d6823c85a6fc7494b513d}{%
+           family={Watanabe},
+           familyi={W\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Singapore Mathematical Society}%
+      }
+      \strng{namehash}{108fcfcb550d6823c85a6fc7494b513d}
+      \strng{fullhash}{108fcfcb550d6823c85a6fc7494b513d}
+      \strng{authornamehash}{108fcfcb550d6823c85a6fc7494b513d}
+      \strng{authorfullhash}{108fcfcb550d6823c85a6fc7494b513d}
+      \field{sortinit}{W}
+      \field{sortinithash}{6d25b3eefe5aa2147d1f339686808918}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Group Theory}
+      \field{year}{2010}
+      \field{pages}{75}
+      \range{pages}{1}
+    \endentry
+    \entry{cite:1}{article}{}
+      \name{author}{2}{}{%
+        {{hash=e10fcb101f57c959d6a5b7e64e38419f}{%
+           family={Zhao},
+           familyi={Z\bibinitperiod},
+           given={F.},
+           giveni={F\bibinitperiod}}}%
+        {{hash=fbd18ff7be6c728650b816e634a922ab}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={T.},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{3e8a35236b525f4301a77f9e6e34445e}
+      \strng{fullhash}{3e8a35236b525f4301a77f9e6e34445e}
+      \strng{authornamehash}{3e8a35236b525f4301a77f9e6e34445e}
+      \strng{authorfullhash}{3e8a35236b525f4301a77f9e6e34445e}
+      \field{sortinit}{Z}
+      \field{sortinithash}{35589aa085e881766b72503e53fd4c97}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{{J}ournal of Hyperbolic Operator Theory}
+      \field{month}{3}
+      \field{title}{Isomorphisms and Questions of Injectivity}
+      \field{volume}{45}
+      \field{year}{1992}
+      \field{pages}{55\bibrangedash 66}
+      \range{pages}{12}
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+
