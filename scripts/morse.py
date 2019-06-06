@@ -104,7 +104,8 @@ plt.plot(x_grid, plot_u, label=r'$\psi_{hole}$', color='blue')
 plt.plot(x_grid, plot_vt + 0.35, label=r'$\psi_{electron}$', color='black')
 plt.axhline(y = 0, linestyle='dashed', color='grey')
 plt.axhline(y = 0.35, linestyle='dashed', color='grey')
-plt.legend(loc='center right', fontsize=14)
+plt.legend(loc='lower right', fontsize=18)
+plt.title('Morse oscillator', fontsize=18)
 plt.savefig("morse_ntos.pdf")
 plt.clf()
 
@@ -129,12 +130,13 @@ plt.axhline(y = -0.6, linestyle='dashed', color='grey')
 plt.axhline(y = -0.3, linestyle='dashed', color='grey')
 plt.axhline(y = 0, linestyle='dashed', color='grey')
 plt.axhline(y = 0.3, linestyle='dashed', color='grey')
-plt.xlabel("x", fontsize=15)
-plt.ylabel(r'$\psi_n(x)$', fontsize=15)
-plt.legend(loc='center right')
+plt.xlabel("x", fontsize=18)
+plt.ylabel(r'$\psi_n(x)$', fontsize=18)
+plt.title('Morse oscillator', fontsize=18)
+plt.legend(loc='lower right', fontsize=13)
 plt.savefig("morse_states.pdf")
 plt.clf()
-
+#
 # Next 6 lines are solely for making plots of prob. densities
 groundprob = np.array([sort_eigvec[i][0]*sort_eigvec[i][0] for i in xrange(ngrid)])
 first_prob = np.array([sort_eigvec[i][1]*sort_eigvec[i][1] for i in xrange(ngrid)])
@@ -156,12 +158,13 @@ plt.axhline(y = -0.06, linestyle='dashed', color='grey')
 plt.axhline(y = -0.03, linestyle='dashed', color='grey')
 plt.axhline(y = 0, linestyle='dashed', color='grey')
 plt.axhline(y = 0.03, linestyle='dashed', color='grey')
-plt.xlabel("x", fontsize=15)
-plt.ylabel(r'$|\psi_n(x)|^2$', fontsize=15)
-plt.legend(loc='center right')
+plt.xlabel("x", fontsize=18)
+plt.ylabel(r'$|\psi_n(x)|^2$', fontsize=18)
+plt.title('Morse oscillator', fontsize=18)
+plt.legend(loc='lower right', fontsize=13)
 plt.savefig("morse_prob_densities.pdf")
 plt.clf()
-
+#
 # Plotting the morse and harmonic potential.
 potential_grid = np.linspace(-7.5, 15, 400)
 harmonic_potential = np.array([0.5 * omegax**2 * 2 * d_well * i**2 for i in potential_grid])
@@ -175,10 +178,36 @@ plt.ylabel("V(x)", fontsize=15)
 plt.legend()
 plt.savefig("morse_potential.pdf")
 plt.clf()
-
+#
 # Writing sorted eigenvalues to a file
 f = open('1dmorse_eigenvalues.dat', 'wb')
 f.write("n       E_n\n")
 for i in xrange(ngrid):
-    f.write("%s %s\n" % (i, sort_eigval[i]))
+    f.write("%s %s\n" % (i, eig_val[i]))
 f.close()
+
+#This section is for finding out how energies relate to the grid size
+real_ground_state = 0.49479154152418975
+energy = []
+niterations = []
+for i in xrange(2,16):
+    niterations.append(i)
+    ngrid = i
+    dx, x_grid = generate_grid(xmin, xmax, ngrid)
+    ke_matrix = get_kinetic(ngrid, dx)
+    pe_matrix = get_potential(ngrid)
+    hamiltonian = ke_matrix + pe_matrix
+    eig_val, eig_vec = la.eig(hamiltonian)
+    sort_eigval, sort_eigvec = bubble_sort(eig_val, eig_vec)
+    if np.sign(sort_eigvec[0][0]) == -1:
+        sort_eigvec = sort_eigvec * -1
+    energy.append(sort_eigval[0])
+energy = np.array(energy).real
+energy = abs((energy - real_ground_state) / real_ground_state)
+plt.xlim(min(niterations) - 1, max(niterations) + 1)
+plt.ylim(min(energy) - 1, max(energy) + 1)
+plt.plot(niterations, energy)
+plt.xlabel("# of grid points", fontsize=15)
+plt.ylabel("relative error", fontsize=15)
+plt.savefig("energy_error.pdf")
+plt.clf()
