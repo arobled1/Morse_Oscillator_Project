@@ -132,8 +132,8 @@
           \centering
           \includegraphics[height=6.0in]{../plots/morse_states.pdf}
       \end{subfigure}
-      \caption{(Left) Harmonic oscillator wavefunctions. (Right) Morse oscillator wavefunctions.}
     \end{figure}
+    \vspace{-1cm}
     \begin{itemize}
       \item Wavefunctions for the morse potential should look similar to those of the harmonic potential because the harmonic potential is a good approximation to the morse potential for small displacements around the equilibrium position.
       \item Issues occured with the numpy/scipy eigenvalue solver. Running the same script on different versions of Python yielded eigenvectors that were different by a minus sign. This created inconsistencies with plotting the wavefunctions but minus signs cancelled out when plotting probability densities.
