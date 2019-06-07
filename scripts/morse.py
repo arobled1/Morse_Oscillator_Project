@@ -206,7 +206,7 @@ energy = np.array(energy).real
 energy = abs((energy - real_ground_state) / real_ground_state)
 plt.xlim(min(niterations) - 1, max(niterations) + 1)
 plt.ylim(min(energy) - 1, max(energy) + 1)
-plt.plot(niterations, energy)
+plt.plot(niterations, energy, '-o')
 plt.xlabel("# of grid points", fontsize=15)
 plt.ylabel("relative error", fontsize=15)
 plt.savefig("energy_error.pdf")
