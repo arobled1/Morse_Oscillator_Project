@@ -36,7 +36,7 @@
 \usetheme{EmoryTheme}
 \usecolorstyle{EmoryStyle}
 
-\title{Natural Transition Orbitals}
+\title{Visualization of Electronic Transitions Using Natural Transition Orbitals}
 \author{Alan Robledo}
 \institute{Department of Physics and Astronomy, University of California, Irvine}
 \titlegraphic{\includegraphics[width=0.06\textwidth]{uci-seal.png}}
@@ -51,7 +51,7 @@
          The objective is to describe electronic excitations in diatomic molecules modeled by a morse potential and a harmonic potential (see figure below) using the electron-hole picture.
          By considering the Configuration Interaction Singles approximation, natural transition orbitals (NTOs) can be constructed, as described by Plasser and Wormit [1], and used for visualizing an electronic transition.
          This consists of performing a Singular Value Decomposition (SVD) of the Transition Density Matrix (TDM) which requires obtaining forms of the wavefunctions associated with the transition.
-         NTOs are especially useful in quantum chemistry because chemists are often interested in orbtial representations of electron dynamics during chemical processes.
+         NTOs are especially useful in quantum chemistry because chemists are often interested in orbital representations of electron dynamics during chemical processes.
          \begin{tikzfigure}
              \includegraphics[width=1.0\linewidth]{../plots/morse_potential.pdf}
          \end{tikzfigure}
@@ -91,7 +91,7 @@
       If we think of our real-space grid as delta functions sitting on lattice points in 1D, i.e., $\ket{x_i} = \delta(x - x_i)$, the potential energy matrix becomes a diagonal matrix where the i-th element along the diagonal is $V(x_i)$.
       \item \textbf{NTOs}\\
       We want a compact way to store the information regarding electronic excitations in our system. We can do this by performing a singular value decomposition
-    of the transition density matrix $\Gamma_{nm}$. An element of the TDM can be computed as
+    of the transition density matrix $\Gamma$. An element of the TDM can be computed as
     \begin{equation}
       \Gamma_{nm} = \braket{n|\Gamma(x, x')|m} = \int dy dy' \delta(x - y) \phi_n^*(y) \phi_m(y') \delta(x' - y')
     \end{equation}
