@@ -88,12 +88,12 @@
       \begin{enumerate}
         \setcounter{enumi}{2}
       \item \textbf{Potential Energy}\\
-      If we think of our real-space grid as delta functions sitting on lattice points in 1D, i.e., $\ket{x_i} = (x - x_i)$, the potential energy matrix becomes a diagonal matrix where the i-th element along the diagonal is $V(x_i)$.
+      If we think of our real-space grid as delta functions sitting on lattice points in 1D, i.e., $\ket{x_i} = \delta(x - x_i)$, the potential energy matrix becomes a diagonal matrix where the i-th element along the diagonal is $V(x_i)$.
       \item \textbf{NTOs}\\
       We want a compact way to store the information regarding electronic excitations in our system. We can do this by performing a singular value decomposition
     of the transition density matrix $\Gamma_{nm}$. An element of the TDM can be computed as
     \begin{equation}
-      \Gamma_{nm} = \braket{n|\Gamma(x, x')|m} = \int dy dy' \delta(x - y) \phi_n^*(y) \phi_m^*(y') \delta(x' - y')
+      \Gamma_{nm} = \braket{n|\Gamma(x, x')|m} = \int dy dy' \delta(x - y) \phi_n^*(y) \phi_m(y') \delta(x' - y')
     \end{equation}
     Performing an SVD of the TDM gives
     \begin{equation}
